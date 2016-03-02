@@ -6,7 +6,7 @@
     Inventor conversion library required for urdf2graspit.
     This source code is heavily based on the **ivcon** package at [https://sourceforge.net/projects/ivcon/](https://sourceforge.net/projects/ivcon/).
     More details in the README. 
-    </description>
+  </description>
 
   <!-- One maintainer tag required, multiple allowed, one person per tag --> 
   <!-- Example:  -->
