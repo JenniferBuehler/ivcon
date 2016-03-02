@@ -45,6 +45,9 @@ endif (catkin_FOUND)
 
 ADD_DEFINITIONS(${QT_DEFINITIONS})
 
+
+
+
 ## Specify additional locations of header files
 ## Your package locations should be listed before other locations
 # include_directories(include)
@@ -64,8 +67,15 @@ set(IVCON_SRC
     src/byu.cpp  src/hrc.cpp   src/pov.cpp   src/tds.cpp  src/tri.cpp  src/utils.cpp  src/xgl.cpp
 )
 
+# build the shared library:
 add_library(ivcon SHARED ${IVCON_SRC})
+
+# build the static library:
 add_library(ivcon_static STATIC ${IVCON_SRC})
+# set_target_properties(ivcon_static PROPERTIES COMPILE_FLAGS -fPIC): not recommended, but works
+# target_compile_definitions(ivcon_static PRIVATE -fPIC): when compiling with catkin, has error "<command-line>:0:1: error: macro names must be identifiers"
+target_compile_options(ivcon_static PRIVATE -fPIC)
+
 
 if (catkin_FOUND) 
     add_executable(ivcon_node src/main.cpp)
@@ -116,6 +126,24 @@ else (catkin_FOUND)
     set ( BIN_DESTINATION ${CMAKE_INSTALL_PREFIX}/bin/)
     set ( SHARE_DESTINATION ${CMAKE_INSTALL_PREFIX}/share/)
 endif (catkin_FOUND) 
+
+install(TARGETS
+    ivcon 
+    EXPORT ivcon-lib-targets
+    DESTINATION ${LIB_DESTINATION})
+
+install(EXPORT ivcon-lib-targets
+    DESTINATION ${LIB_DESTINATION})
+
+install(TARGETS
+    ivcon_static 
+    EXPORT ivcon-static-lib-targets
+    DESTINATION ${LIB_DESTINATION})
+
+install(EXPORT ivcon-static-lib-targets
+    DESTINATION ${LIB_DESTINATION})
+
+
 
 # all install targets should use catkin DESTINATION variables
 # See http://ros.org/doc/api/catkin/html/adv_user_guide/variables.html
