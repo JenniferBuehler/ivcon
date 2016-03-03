@@ -72,10 +72,13 @@ add_library(ivcon SHARED ${IVCON_SRC})
 
 # build the static library:
 add_library(ivcon_static STATIC ${IVCON_SRC})
-# set_target_properties(ivcon_static PROPERTIES COMPILE_FLAGS -fPIC): not recommended, but works
-# target_compile_definitions(ivcon_static PRIVATE -fPIC): when compiling with catkin, has error "<command-line>:0:1: error: macro names must be identifiers"
-target_compile_options(ivcon_static PRIVATE -fPIC)
 
+# set_target_properties(ivcon_static PROPERTIES COMPILE_FLAGS -fPIC): not recommended, but works
+if ((CMAKE_VERSION VERSION_GREATER 2.8.12) OR (CMAKE_VERSION VERSION_EQUAL 2.8.12))
+    target_compile_options(ivcon_static PRIVATE -fPIC)
+else ((CMAKE_VERSION VERSION_GREATER 2.8.12) OR (CMAKE_VERSION VERSION_EQUAL 2.8.12))
+    target_compile_definitions(ivcon_static PRIVATE -fPIC) #: when compiling with catkin, has error "<command-line>:0:1: error: macro names must be identifiers"
+endif ((CMAKE_VERSION VERSION_GREATER 2.8.12) OR (CMAKE_VERSION VERSION_EQUAL 2.8.12))
 
 if (catkin_FOUND) 
     add_executable(ivcon_node src/main.cpp)
