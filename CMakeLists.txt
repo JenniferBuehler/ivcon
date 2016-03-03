@@ -76,13 +76,11 @@ add_library(ivcon_static STATIC ${IVCON_SRC})
 if ((CMAKE_VERSION VERSION_GREATER 2.8.12) OR (CMAKE_VERSION VERSION_EQUAL 2.8.12))
     target_compile_options(ivcon_static PRIVATE -fPIC)
 else ((CMAKE_VERSION VERSION_GREATER 2.8.12) OR (CMAKE_VERSION VERSION_EQUAL 2.8.12))
-    if (catkin_FOUND)
-        # not recommended, but works on catkin
-        set_target_properties(ivcon_static PROPERTIES COMPILE_FLAGS -fPIC)
-    else (catkin_FOUND)
-        #when compiling with catkin, has error "<command-line>:0:1: error: macro names must be identifiers"
-        target_compile_definitions(ivcon_static PRIVATE -fPIC) 
-    endif (catkin_FOUND)
+    # not recommended, but works with catkin:
+    set_target_properties(ivcon_static PROPERTIES COMPILE_FLAGS -fPIC)
+    # when compiling with catkin, has error "<command-line>:0:1: error: macro names must be identifiers":
+    # target_compile_definitions(ivcon_static PRIVATE -fPIC) 
+    # could at some point improve this.
 endif ((CMAKE_VERSION VERSION_GREATER 2.8.12) OR (CMAKE_VERSION VERSION_EQUAL 2.8.12))
 
 if (catkin_FOUND) 
