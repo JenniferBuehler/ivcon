@@ -78,7 +78,8 @@ if ((CMAKE_VERSION VERSION_GREATER 2.8.12) OR (CMAKE_VERSION VERSION_EQUAL 2.8.1
 else ((CMAKE_VERSION VERSION_GREATER 2.8.12) OR (CMAKE_VERSION VERSION_EQUAL 2.8.12))
     # not recommended, but works with catkin:
     set_target_properties(ivcon_static PROPERTIES COMPILE_FLAGS -fPIC)
-    # when compiling with catkin, has error "<command-line>:0:1: error: macro names must be identifiers":
+    # when compiling with catkin (and bloom releae),
+    # has error "<command-line>:0:1: error: macro names must be identifiers":
     # target_compile_definitions(ivcon_static PRIVATE -fPIC) 
     # could at some point improve this.
 endif ((CMAKE_VERSION VERSION_GREATER 2.8.12) OR (CMAKE_VERSION VERSION_EQUAL 2.8.12))
