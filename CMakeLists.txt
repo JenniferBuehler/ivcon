@@ -1,7 +1,6 @@
 cmake_minimum_required(VERSION 2.8.3)
 project(ivcon)
 
-
 # by default, compiling with catkin is
 # enabled. It will only be disabled again
 # if CATKIN_DEVEL_PREFIX is not set.
@@ -41,7 +40,7 @@ find_package(Qt4 REQUIRED)
 find_package(Coin REQUIRED)
 find_package(SoQt4 REQUIRED)
 
-if (COMPILE_WITH_CMAKE) 
+if (COMPILE_WITH_CATKIN) 
     ###################################
     ## catkin specific configuration ##
     ###################################
@@ -58,7 +57,7 @@ if (COMPILE_WITH_CMAKE)
       DEPENDS libsoqt4-dev libcoin80-dev libqt4-dev
       # DEPENDS Qt4 Coin SoQt4
     )
-endif (COMPILE_WITH_CMAKE) 
+endif (COMPILE_WITH_CATKIN) 
 
 ###########
 ## Build ##
@@ -105,9 +104,9 @@ else ((CMAKE_VERSION VERSION_GREATER 2.8.12) OR (CMAKE_VERSION VERSION_EQUAL 2.8
     # could at some point improve this.
 endif ((CMAKE_VERSION VERSION_GREATER 2.8.12) OR (CMAKE_VERSION VERSION_EQUAL 2.8.12))
 
-if (COMPILE_WITH_CMAKE) 
+if (COMPILE_WITH_CATKIN) 
     add_executable(ivcon_node src/main.cpp)
-endif (COMPILE_WITH_CMAKE) 
+endif (COMPILE_WITH_CATKIN) 
 
 ## Add cmake target dependencies of the executable/library
 ## as an example, message headers may need to be generated before nodes
@@ -129,31 +128,31 @@ target_link_libraries(ivcon_static
    ${LINK_LIBS}
 )
 
-if (COMPILE_WITH_CMAKE) 
+if (COMPILE_WITH_CATKIN) 
     target_link_libraries(ivcon_node
        ivcon 
        ${LINK_LIBS}
     )
-endif (COMPILE_WITH_CMAKE) 
+endif (COMPILE_WITH_CATKIN) 
 
 
 #############
 ## Install ##
 #############
 
-if (COMPILE_WITH_CMAKE) 
+if (COMPILE_WITH_CATKIN) 
     # all install targets should use catkin DESTINATION variables
     # See http://ros.org/doc/api/catkin/html/adv_user_guide/variables.html
     set ( INCLUDE_DESTINATION ${CATKIN_PACKAGE_INCLUDE_DESTINATION})
     set ( LIB_DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION})
     set ( BIN_DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION})
     set ( SHARE_DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION})
-else (COMPILE_WITH_CMAKE) 
+else (COMPILE_WITH_CATKIN) 
     set ( INCLUDE_DESTINATION ${CMAKE_INSTALL_PREFIX}/include/${PROJECT_NAME}/)
     set ( LIB_DESTINATION ${CMAKE_INSTALL_PREFIX}/lib/)
     set ( BIN_DESTINATION ${CMAKE_INSTALL_PREFIX}/bin/)
     set ( SHARE_DESTINATION ${CMAKE_INSTALL_PREFIX}/share/)
-endif (COMPILE_WITH_CMAKE) 
+endif (COMPILE_WITH_CATKIN) 
 
 install(TARGETS
     ivcon 
@@ -184,9 +183,9 @@ install(EXPORT ivcon-static-lib-targets
 # )
 
 set(INSTALL_LIBS_AND_EXES ivcon ivcon_static)
-if (COMPILE_WITH_CMAKE) 
+if (COMPILE_WITH_CATKIN) 
     set(INSTALL_LIBS_AND_EXES ${INSTALL_LIBS_AND_EXES} ivcon_node)
-endif (COMPILE_WITH_CMAKE) 
+endif (COMPILE_WITH_CATKIN) 
 
 ## Mark executables and/or libraries for installation
 install(TARGETS ${INSTALL_LIBS_AND_EXES}

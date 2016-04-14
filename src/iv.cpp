@@ -2000,7 +2000,7 @@ bool IVCONV::iv_write ( FILE *fileout ) {
 	globalMaterial->emissiveColor.setValue(0,0,0);
 	globalMaterial->specularColor.setValue(0,0,0);
 	//globalMaterial->shininess.setNum(0.2);
-	//globalMaterial->transparency.setNum(0);
+	globalMaterial->transparency.setValue(0.1);
 	
 	SoMaterialBinding * materialBinding=new SoMaterialBinding();
 	if (writeIndexed) 
